@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler</title>
+     <script src="./codemirror-5.65.18/lib/codemirror.js"></script>
+     <link rel="stylesheet" href="./codemirror-5.65.18/lib/codemirror.css">
+    <link rel="stylesheet" href="./codemirror-5.65.18/theme/dracula.css">
+
+      <script src="./codemirror-5.65.18/mode/clike/clike.js"></script>
+      
+       <script src="./codemirror-5.65.18/addon/edit/closebrackets.js"></script>
+     <link rel="stylesheet" href="../codemirror-5.65.18/addon/scroll/simplescrollbars.css"> 
+     <script src="./codemirror-5.65.18/addon/scroll/simplescrollbars.js"></script>
+     <script src="./codemirror-5.65.18/mode/python/python.js"></script>
+     <script src="./codemirror-5.65.18/mode/php/php.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    
+    <style>
+      body{
+        all:unset
+      }
+        
+        footer{
+           all:unset;
+           bottom: 0;
+           width: 100rem;
+           height: 6%;
+           background-color: rgba(128, 128, 128, 0.693);
+           text-align: center;
+        }
+    </style>
+
+
+     
+
+
+
+    
+</head>
+<body style=" background-color: rgba(215, 248, 149, 0.808)">
+
+
+      
+      <div class="row m-3" class="d-flex justify-content-between mb-2" >
+        <div style="margin-bottom: 5px;" >
+          <h6><b>Please Note:</b> We  use Jdoodle Api Request to Complie the code.<br>
+            There is a daily limit of 20 credits , So use it Accordingly
+            </h6>
+            <div style="height: 150px; background-color: grey; margin-bottom: 5px; overflow: auto;" >
+              <h6>
+               &nbsp; Step 1: <i>Copy and Paste Your Code in the Editor</i>
+                <br>
+                &nbsp; Step 2: <i>Type all your input in Input Box<br></i>
+                &nbsp; Step 3: <i>Examine Your OutPut in Output Box</i>
+                <br>
+                <h6>Note: Always make the access specifer of Class to Public</h6>
+                Note: If you Encounter any Isuue , Please click on &nbsp; <i>Another Compiler</i> 
+              </h6>
+            </div>
+          <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+          <select class="form-select"  id="autoSizingSelect" >
+            <!--  -->
+            
+            <option selected ="Java" value="Java">Java</option>
+            <option value="Python">Python</option>
+          </select>
+          
+          
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <button type="button" id="run" class="btn btn-success" style="margin-top: 2px;">Run <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1." fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+          </svg></button>
+          <button onclick="window.location.href='./index02.html'" type="button" id="AnotherCompiler" class="btn btn-primary" >Another Compiler</button>
+          
+        </div>
+        
+
+        <div class="rowd-flex flex-column rounded bg-dark m-2 ">
+          <textarea name="" id="editor" type="text" class="form-control"  aria-label="First name" ></textarea>
+        </div>
+
+
+        <!--     -->
+      <div class="col d-flex flex-column rounded bg-dark m-2" style="height: 650px;">
+          <div class="row m-3 text-light" >
+            
+            <label for="form-control">Input</label>
+            <textarea type="text" class="form-control" id="input"  style="height: 200px;overflow: auto;"></textarea>
+            
+            <label for="form-control">Ouput</label>
+            <textarea type="text" class="form-control" id="output" style="height: 200px; overflow: auto;"></textarea>
+
+            <label for="form-control">Status</label>
+            <textarea type="text" class="form-control" id="status" style="height: 130px;overflow: auto;"></textarea>
+          
+          </div>
+      </div>
+      <footer>
+        &copy;All Rights Reserved 2024<br/>
+        Designed and Made By Prakhar Kushwaha
+       </footer>  
+</body>
+
+
+<script>
+// const express = require("express");
+// const app = express();
+// const bodyP= require("body-parser");
+// app.use(bodyP.json());
+//app.use(express.json());
+
+   //const fetch = require("node-fetch");
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"),
+   { mode: "text/x-java",
+     theme: "dracula",
+     lineNumbers: true,
+     autoCloseBrackets: true,
+   });
+
+   var width = window.innerWidth;
+   editor.setSize(width,350);
+   var option = document.getElementById("autoSizingSelect");
+   option.addEventListener("change",function()
+  {
+    console.log(option.value);
+     if(option.value == "Python")
+    editor.setOption("mode","text/x-python");
+    else
+    {
+      editor.setOption("mode","text/x-java");
+    }
+  });
+ const outputData=document.getElementById("output");
+ const statusBlock =document.getElementById("status");
+
+  var code;
+  document.getElementById("run").addEventListener("click",async ()=>{
+    console.log("Test : button is pressed");
+        code={
+          code: editor.getValue(),
+          input: document.getElementById("input").value,
+          lang: document.getElementById("autoSizingSelect").value
+        }
+        const data = await fetch("http://localhost:8080/compile",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify(code)
+
+        })
+        
+  
+        .then(response =>
+        {
+              return response.json();
+        })
+         .then(data =>
+         {
+            console.log("In Html Fetch Request",data);
+            
+              outputData.value=data.output;
+             statusBlock.value= `Status :- ${data.statusCode}\nError :- ${data.error}\nMemory:- ${data.memory}\nCPU Time:- ${data.cpuTime}`;
+         })
+         .catch(error =>
+          {
+            console.log("Catch Error",error);
+            
+          }
+         )
+            
+        //  }
+        // )
+        //console.log(oData);
+        //if(!oData.ok)
+        //{
+        //  throw new Error("Network Status is 404");
+        //}
+        // const data = await oData.json();
+        // console.log(data);
+        // document.getElementById("output").value= data.output;
+        // document.getElementById("status").value= "Status code: "+data.statusCode +"\nCPU Time"+data.cpuTime+"\nMemory"+data.memory+"\nError:"+data.console.error ;
+ })
+
+
+ </script>
+
+
+</html>
